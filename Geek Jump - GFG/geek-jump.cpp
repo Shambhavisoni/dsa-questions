@@ -6,6 +6,23 @@ using namespace std;
 // } Driver Code Ends
 class Solution {
   public:
+    int s_opt(vector<int>& height, int n) {
+        // Code here
+        int prev2=0, prev1=0;
+        
+        for(int i=1;i<n;i++){
+            int oneStep=abs(height[i]-height[i-1])+prev1;
+            int twoSteps=INT_MAX;
+            if(i>1){
+                twoSteps=abs(height[i]-height[i-2])+prev2;
+            }
+            int curr=min(oneStep, twoSteps);
+            prev2=prev1;
+            prev1=curr;
+        }
+        return prev1;
+        
+    }
     int tab(vector<int>& height, int n) {
         // Code here
         vector<int> dp(n,0);
@@ -43,7 +60,9 @@ class Solution {
         // vector<int> dp(n,-1);
         // return mem(height, n-1, dp);
         
-        return tab(height, n);
+        // return tab(height, n);
+        
+        return s_opt(height, n);
     }
 };
 
