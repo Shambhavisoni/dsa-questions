@@ -5,6 +5,30 @@ using namespace std;
 // } Driver Code Ends
 class Solution {
   public:
+    int sO(vector<vector<int>>& points, int n){
+        vector<int> prev(4,0);
+        vector<int> curr(4,0);
+        
+        prev[0]=max(points[0][1],points[0][2]);
+        prev[1]=max(points[0][0],points[0][2]);
+        prev[2]=max(points[0][0],points[0][1]);
+        prev[3]=max(points[0][0],max(points[0][1], points[0][2]));
+
+        for(int day=1;day<n;day++){
+            for(int prev_act=0;prev_act<4;prev_act++){
+                int maxi=0;
+                for(int i=0;i<3;i++){
+                    if(i!=prev_act){
+                        int act=points[day][i]+prev[i];
+                        maxi=max(maxi,act);
+                    }
+                }
+                curr[prev_act]=maxi;
+            }
+            prev=curr;
+        }
+        return prev[3];
+    }
     int tab(vector<vector<int>>& points, int n){
         vector<vector<int>> dp(n, vector<int>(4,0));
         dp[0][0]=max(points[0][1],points[0][2]);
@@ -75,7 +99,9 @@ class Solution {
         // vector<vector<int>> dp(n, vector<int>(4,-1));
         // return mem(points, n-1, 3, dp);
         
-        return tab(points, n);
+        // return tab(points, n);
+        
+        return sO(points, n);
     }
 };
 
