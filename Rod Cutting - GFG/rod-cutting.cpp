@@ -10,6 +10,27 @@ using namespace std;
 
 class Solution{
   public:
+    int sO1(int price[], int n){
+        vector<int> curr(n+1, 0);
+        
+        for(int i=0;i<=n;i++){
+            curr[i]=i*price[0];
+        }
+        
+        for(int i=1;i<n;i++){
+            for(int j=0;j<=n;j++){
+                int take=INT_MIN;
+                int rodLength=i+1;
+                if(j>=rodLength){
+                    take=price[i]+curr[j-rodLength];
+                }
+                int notTake=curr[j];
+                curr[j]=max(take, notTake);
+            }
+        }
+        return curr[n];
+    }
+    
     int sO(int price[], int n){
         vector<int> prev(n+1, 0);
         vector<int> curr(n+1, 0);
@@ -109,7 +130,9 @@ class Solution{
         
         // return tab(price, n);
         
-        return sO(price, n);
+        // return sO(price, n);
+        
+        return sO1(price, n);
     }
 };
 
