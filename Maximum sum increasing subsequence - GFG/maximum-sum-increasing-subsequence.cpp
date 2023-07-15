@@ -20,7 +20,7 @@ class Solution{
 	        }
 	        c=p;
 	    }
-	    return c[0];
+	    return p[0];
 	}
 	int tab(int arr[], int n){
 	    vector<vector<int>> dp(n+1, vector<int>(n+1, 0));
