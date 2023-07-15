@@ -5,6 +5,23 @@ using namespace std;
 // } Driver Code Ends
 class Solution{
 	public:
+	int sO(int arr[], int n){
+	    vector<int> p(n+1, 0);
+	    vector<int> c(n+1, 0);
+	    
+	    for(int curr=n-1;curr>=0;curr--){
+	        for(int prev=curr-1;prev>=-1;prev--){
+	            int take=0;
+        	    if(prev==-1 || arr[prev]<arr[curr]){
+        	        take=arr[curr]+c[curr+1];
+        	    }
+        	    int notTake=c[prev+1];
+        	    p[prev+1]=max(take, notTake);
+	        }
+	        c=p;
+	    }
+	    return c[0];
+	}
 	int tab(int arr[], int n){
 	    vector<vector<int>> dp(n+1, vector<int>(n+1, 0));
 	    
@@ -53,7 +70,9 @@ class Solution{
 	   // vector<vector<int>> dp(n, vector<int>(n+1, -1));
 	   // return mem(arr, 0, -1, n, dp);
 	    
-	    return tab(arr, n);
+	   // return tab(arr, n);
+	    
+	    return sO(arr, n);
 	}  
 };
 
