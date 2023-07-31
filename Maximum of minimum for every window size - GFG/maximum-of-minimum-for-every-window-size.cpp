@@ -53,16 +53,11 @@ class Solution
         vector<int> right=right_nextsmallerElement(a, n);
     
         vector<int> b(n);
-        int maxi=0, num;
         for(int i=0;i<n;i++){
             b[i]=right[i]-left[i]+1;
-            if(maxi<b[i]){
-                maxi=b[i];
-                num=a[i];
-            }
         }
     
-        vector<int> c(n+1, num);
+        vector<int> c(n+1, -1e9);
         
         for(int i=0;i<n;i++){
             c[b[i]]=max(c[b[i]], a[i]);
