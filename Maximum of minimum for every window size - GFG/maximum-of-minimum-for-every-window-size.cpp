@@ -63,10 +63,12 @@ class Solution
             c[b[i]]=max(c[b[i]], a[i]);
         }
     
-        vector<int> ans(n);
+        vector<int> ans(n, INT_MIN);
+    
         for(int i=0;i<n;i++){
-            ans[i]=c[i+1];
+            ans[b[i]-1]=max(ans[b[i]-1], a[i]);
         }
+    
         for(int i=n-2;i>=0;i--){
             ans[i]=max(ans[i], ans[i+1]);
         }
