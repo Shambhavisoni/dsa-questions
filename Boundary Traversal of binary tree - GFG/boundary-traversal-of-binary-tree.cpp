@@ -105,76 +105,66 @@ struct Node
 
 class Solution {
 public:
-    void leftBoundary(Node* root, vector<int>& ans){
-        while(root->left!=NULL || root->right!=NULL){
-            ans.push_back(root->data);
-            if(root->left){
-                root=root->left;
-            }
-            else if(root->right){
-                root=root->right;
-            }
+    void leftBoundary(Node *root, vector<int>& v){
+        if(root==NULL || (root->left==NULL && root->right==NULL)){
+            return;
+        }
+        v.push_back(root->data);
+        if(root->left){
+            leftBoundary(root->left, v);
+        }
+        else{
+            leftBoundary(root->right, v);
         }
     }
     
-    void leafNodes(Node* root, vector<int>& ans){
+    void rightBoundary(Node *root, vector<int>& v){
+        if(root==NULL || (root->left==NULL && root->right==NULL)){
+            return;
+        }
+        if(root->right){
+            rightBoundary(root->right, v);
+        }
+        else{
+            rightBoundary(root->left, v);
+        }
+        v.push_back(root->data);
+    }
+    
+    void leafNodes(Node *root, vector<int>& v){
         if(root==NULL){
             return;
         }
         if(root->left==NULL && root->right==NULL){
-            ans.push_back(root->data);
-            return;
+            v.push_back(root->data);
         }
-        leafNodes(root->left, ans);
-        leafNodes(root->right, ans);
+        
+        leafNodes(root->left, v);
+        leafNodes(root->right, v);
     }
     
-    void rightBoundary(Node* root, vector<int>& ans){
-        stack<int> st;
-        while(root->left!=NULL || root->right!=NULL){
-            st.push(root->data);
-            if(root->right){
-                root=root->right;
-            }
-            else if(root->left){
-                root=root->left;
-            }
-        }
-        while(!st.empty()){
-            ans.push_back(st.top());
-            st.pop();
-        }
-         
-    }
     vector <int> boundary(Node *root)
     {
         //Your code here
-        vector<int> ans;
-
         if(root==NULL){
-            return ans;
+            return {};
         }
-    
-        ans.push_back(root->data);
-        if(root->left==NULL && root->right==NULL){
-            return ans;
-        }
-    
-        // left boundary
+        vector<int> v;
         Node* temp=root;
-        if(temp->left)
-        leftBoundary(temp->left, ans);
-    
-        // leaf nodes 
+        v.push_back(temp->data);
+        
         temp=root;
-        leafNodes(temp, ans);
-    
-        // right Boundary
+        leftBoundary(temp->left, v);
+        
         temp=root;
-        if(temp->right)
-        rightBoundary(temp->right, ans);
-    
-        return ans;
+        leafNodes(temp->left, v);
+        temp=root;
+        leafNodes(temp->right, v);
+        
+        temp=root;
+        rightBoundary(temp->right, v);
+        
+        return v;
     }
 };
 
