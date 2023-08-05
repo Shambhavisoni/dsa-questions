@@ -42,81 +42,28 @@ class Solution
     void findPreSuc(Node* root, Node*& pre, Node*& suc, int key)
     {
         // Your code goes here
-        pre=NULL, suc=NULL;
-        int maxi=-1, mini=-1;
+        pre=suc=NULL;
         Node* temp=root;
         while(temp!=NULL){
             if(temp->key<key){
-                if(temp->key>mini){
-                    mini=temp->key;
-                    pre=temp;
-                }
+                pre=temp;
                 temp=temp->right;
             }
-            else if(temp->key>=key){
+            else{
                 temp=temp->left;
             }
-            // else if(temp->key>=key){
-            //     break;
-            // }
         }
-
+        
         temp=root;
         while(temp!=NULL){
             if(temp->key>key){
-                if(maxi==-1){
-                    maxi=temp->key;
-                    suc=temp;
-                }
-                else if(temp->key<maxi){
-                    maxi=temp->key;
-                    suc=temp;
-                }
+                suc=temp;
                 temp=temp->left;
             }
-            else if(temp->key<=key){
+            else{
                 temp=temp->right;
             }
-            // else if(temp->key<=key){
-            //     break;
-            // }
         }
-        
-        // while(root!=NULL){
-        //     if(root->key>key){
-        //         if(maxi==-1){
-        //             maxi=root->key;
-        //             suc=root;
-        //         }
-        //         else if(maxi!=-1 && root->key<maxi){
-        //             maxi=root->key;
-        //             suc=root;
-        //         }
-        //         root=root->left;
-        //     }
-        //     else if(root->key<key){
-        //         if(root->key>mini){
-        //             mini=root->key;
-        //             pre=root;
-        //         }
-        //         root=root->right;
-        //     }
-        //     else if(root->key==key){
-        //         if(root->left){
-        //             pre=root->left;
-        //         }
-        //         if(maxi==-1){
-        //             maxi=root->key;
-        //             suc=root;
-        //         }
-        //         while(root!=NULL && root->key<maxi){
-        //             maxi=root->key;
-        //             suc=root;
-        //             root=root->right;
-        //         }
-        //         break;
-        //     }
-        // }
     }
 };
 
