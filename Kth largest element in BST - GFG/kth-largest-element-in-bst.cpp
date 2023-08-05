@@ -97,41 +97,22 @@ struct Node {
 class Solution
 {
     public:
-    // void Revinorder(Node* root, vector<int> &v){
-    //     if(root==NULL){
-    //         return;
-    //     }
-    //     Revinorder(root->right,v);
-    //     v.push_back(root->data);
-    //     Revinorder(root->left,v);
-    // }
-    void Rev_inorder(Node* root, int &c, int K, int &ans){
+    void inorder(Node* root, vector<int>& ans){
         if(root==NULL){
             return;
         }
-        Rev_inorder(root->right,c,K,ans);
-        c++;
-        if(c==K){
-            ans=root->data;
-            return;
-        }
-        Rev_inorder(root->left,c,K,ans);
+        inorder(root->left, ans);
+        ans.push_back(root->data);
+        inorder(root->right, ans);
     }
     int kthLargest(Node *root, int K)
     {
         //Your code here
-        int c=0,ans;
-        Rev_inorder(root,c,K,ans);
-        return ans;
-        // **********************************
-        // vector<int> v;
-        // Revinorder(root,v);
-        // for(int i=0;i<v.size();i++){
-        //     if(i==K-1){
-        //         return v[i];
-        //     }
-        // }
-        // return -1;
+        int c=0;
+        vector<int> ans;
+        inorder(root, ans);
+        reverse(ans.begin(), ans.end());
+        return ans[K-1];
     }
 };
 
