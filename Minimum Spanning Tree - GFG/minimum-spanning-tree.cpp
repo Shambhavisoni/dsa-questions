@@ -10,39 +10,40 @@ class Solution
     int spanningTree(int V, vector<vector<int>> adj[])
     {
         // code here
-        // vector<pair<int,int>> edges[V];
-        // for(int i=0;i<adj.size();i++){
-        //     edges[adj[i][0]].push_back({adj[i][1], adj[i][2]});
-        //     edges[adj[i][1]].push_back({adj[i][0], adj[i][2]});
-        // }
-        // {wt,{node, parent}}
-        priority_queue<pair<int,pair<int,int>>, vector<pair<int,pair<int,int>>>, greater<pair<int,pair<int,int>>>> pq;
+        
+        
+        
+        // weight, node, parent
+        
+        priority_queue<pair<int,pair<int,int>>,vector<pair<int,pair<int,int>>>,greater<pair<int,pair<int,int>>>> q;
         vector<int> vis(V, 0);
         int sum=0;
         
-        pq.push({0,{0,-1}});
-        // vis[0]=1;
+        q.push({0,{0,-1}});
         
-        while(!pq.empty()){
-            int weight=pq.top().first;
-            int node=pq.top().second.first;
-            int par=pq.top().second.second;
+        while(!q.empty()){
+            int wt=q.top().first;
+            int node=q.top().second.first;
+            int parent=q.top().second.second;
             
-            pq.pop();
+            q.pop();
             
             if(!vis[node]){
+                sum+=wt;
                 vis[node]=1;
-                sum+=weight;
-            
+                
                 for(auto it:adj[node]){
-                    int adj_node=it[0];
                     int adj_wt=it[1];
-                    
-                    pq.push({adj_wt,{adj_node,node}});
+                    int adj_node=it[0];
+                    q.push({adj_wt,{adj_node, node}});
                 }
             }
+            
+            
         }
         return sum;
+        
+        
     }
 };
 
