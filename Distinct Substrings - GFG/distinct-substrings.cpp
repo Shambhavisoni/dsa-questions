@@ -24,7 +24,7 @@ int fun(string s)
     set<string> st;
     
     while(i<n-1){
-        string a=s.substr(i, 2);
+        string a=to_string(s[i])+to_string(s[i+1]);
         st.insert(a);
         i++;
     }
