@@ -5,18 +5,18 @@ using namespace std;
 // } Driver Code Ends
 class Solution {
   public:
-    int getCount(int n) {
+    int getCount(int N) {
         // code here
-        // explaination written in blue diary(25 june pg)
         int cnt=0;
-        for(int k=2;2 * n > (k*(k-1));k++){
-            int numerator=n - ((k *(k-1))/2);
-            int denominator=k;
-
-            if(numerator % denominator == 0){
+        for(int k=2;2*N>k*(k-1);k++){
+            int num = N - ((k*(k-1))/2);
+            int denum = k;
+            
+            if(num % denum == 0){
                 cnt++;
             }
         }
+        
         return cnt;
     }
 };
