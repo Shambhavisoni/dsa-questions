@@ -9,26 +9,20 @@ using namespace std;
 
 class Solution{
 public:
-    vector<int> minPartition(int N)
+    vector<int> minPartition(int target)
     {
         // code here
         int coins[]={ 2000, 500, 200, 100, 50, 20, 10, 5, 2, 1 };
-        
         vector<int> ans;
         
-        int cnt=0, i=0;
-        while(cnt!=N){
-            if(cnt+coins[i]<=N){
-                cnt+=coins[i];
+        for(int i=0;i<10;i++){
+            while(target>=coins[i]){
+                target -= coins[i];
                 ans.push_back(coins[i]);
-                // N-=coins[i];
-            }
-            else{
-                i++;
             }
         }
-        return ans;
         
+        return ans;
     }
 };
 
