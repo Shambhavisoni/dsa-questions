@@ -8,32 +8,35 @@ class Solution
     public:
     //Function to find the maximum number of meetings that can
     //be performed in a meeting room.
-    static bool comp(pair<int,int>& a, pair<int,int>& b){
-        return a.second<b.second;
+    static bool comp(vector<int>& a, vector<int>& b){
+        if(a[1]<b[1]){
+            return true;
+        }
+        else if(a[1]==b[1]){
+            return a[2]<b[2];
+        }
+        return false;
     }
-    
     int maxMeetings(int start[], int end[], int n)
     {
         // Your code here
+        vector<vector<int>> jobs;
         
-        // sort on the basis of ending time
-        vector<pair<int,int>> job;
         for(int i=0;i<n;i++){
-            job.push_back({start[i], end[i]});
+            jobs.push_back({start[i], end[i], i});
         }
         
-        sort(job.begin(), job.end(), comp);
+        sort(jobs.begin(), jobs.end(), comp);
         
-        int cnt=1;
-        pair<int,int> curr=job[0];
+        int t=0, c=0;
         
-        for(int i=1;i<n;i++){
-            if(curr.second<job[i].first){
-                curr=job[i];
-                cnt++;
+        for(auto it:jobs){
+            if(t < it[0]){
+                t=it[1];
+                c++;
             }
         }
-        return cnt;
+        return c;
     }
 };
 
