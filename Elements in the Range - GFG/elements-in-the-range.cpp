@@ -11,16 +11,25 @@ class Solution{
 	{
 		// Your code goes here
 		
-		set<int> st;
 		for(int i=0;i<n;i++){
-		    st.insert(arr[i]);
-		}
-		for(int i=A;i<=B;i++){
-		    if(st.find(i)==st.end()){
-		        return false;
+		    if(abs(arr[i])>=A && abs(arr[i])<=B){
+		        int idx=abs(arr[i])-A;
+		        if(idx<n && arr[idx]>0){
+		            arr[idx]*=-1;
+		        }
 		    }
 		}
-		return true;
+		int cnt=0;
+		
+		for(int i=0;i<=(B-A) && i<n;i++){
+		    if(arr[i]>0){
+		        return false;
+		    }
+		    else{
+		        cnt++;
+		    }
+		}
+		return cnt==(B-A+1);
 	}
 
 
